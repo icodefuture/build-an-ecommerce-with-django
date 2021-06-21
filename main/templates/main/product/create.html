@@ -1,0 +1,25 @@
+{% extends "../app.html" %}
+
+{% block  content %}
+<div class="product-create py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Add New Product</div>
+                    <div class="card-body">                    
+                        {% load crispy_forms_tags %}
+                        <form action="{% url 'main:product_create' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            {{ form|crispy }}
+
+                            <button class="btn btn-dark" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

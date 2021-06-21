@@ -1,0 +1,101 @@
+{% extends "../app.html" %}
+
+{% block  content %}
+<div class="container pt-5">
+    <h1>Hi, {{ user.get_full_name }}</h1>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    
+    {% if user.groups.all.0.name == "seller" %}
+        <a href="{% url 'main:dashboard_products' %}" class="btn btn-dark mb-3">All Products</a>
+
+        {% if orders.count == 0 %}
+            <p>Your orders will be available here...</p>
+            <a href="{% url 'main:home' %}">Start Shopping</a>
+        {% else %}
+            <p>Proucts sold</p>
+            <table class="table table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Country</th>
+                    <th>City</th>
+                </tr>
+                {% for item in orders %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <a href="{% url 'main:product_show' slug=item.product.slug %}">
+                            {{ item.product.title }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ item.quantity }}
+                    </td>
+                    <td>
+                        {{ item.total_cost }}
+                    </td>
+                    <td>
+                        {{ item.order.created_at }}
+                    </td>
+                    <td>
+                        {{ item.order.country }}
+                    </td>
+                    <td>
+                        {{ item.order.city }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% else %}
+        {% if orders.count == 0 %}
+            <p>Your orders will be available here...</p>
+            <a href="{% url 'main:home' %}">Start Shopping</a>
+        {% else %}
+            <p>Your orders</p>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                </tr>
+                {% for order in orders %}
+                {% for item in order.order_item.all %}
+                <tr>
+                    <td>
+                        <a href="{% url 'main:product_show' slug=item.product.slug %}">
+                            {{ item.product.title }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ item.quantity }}
+                    </td>
+                    <td>
+                        {{ item.total_cost }}
+                    </td>
+                    <td>
+                        {{ item.order.created_at }}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

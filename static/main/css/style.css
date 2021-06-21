@@ -1,0 +1,56 @@
+body {
+    font-family: 'Kumbh Sans', sans-serif;
+    font-weight: 500;
+}
+.asteriskField {
+    font-family: sans-serif;
+    color: #eb4555;
+    padding-left: 2.5px;
+}
+.btn {
+    font-weight: 500 !important;
+}
+.header {
+    background-image: url('../img/banner1.jpg');
+    background-size: cover;
+    background-position: center center;
+    padding: 300px 40px;
+    position: relative;
+}
+.header-content {
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    height: 60%;
+}
+.header-content h1 {
+    font-size: 50px;
+    padding-bottom: 30px;
+}
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);
+    z-index: 2;
+}
+.products {
+    padding: 40px 20px;
+}
+.products .price {
+    font-size: 20px;
+}
+.products .card a {
+    color: #4a4a4a;
+}
+
+.product-show .price {
+    color: #696969;
+    font-size: 24px;
+}

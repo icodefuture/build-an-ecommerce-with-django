@@ -1,0 +1,59 @@
+{% extends "../app.html" %}
+
+{% block  content %}
+<div class="container pt-5">
+    <a href="{% url 'main:product_create' %}" class="btn btn-dark mb-3">Add New Product</a>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Product</th>
+            <th>Gallery</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <a href="{% url 'main:product_show' slug=product.slug %}">
+                    {{ product.title }}
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'main:product_gallery' id=product.id %}" class="btn btn-light">
+                    <i class="fas fa-images"></i>
+                    Gallery
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'main:product_edit' id=product.id %}" class="btn btn-light">
+                    <i class="fas fa-pen"></i>
+                    Edit
+                </a>
+            </td>
+            <td>
+                <form action="{% url 'main:product_delete' id=product.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-dark">
+                        <i class="fas fa-times-circle"></i>
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "../app.html" %}
+
+{% block  content %}
+<div class="product-show py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="product-gallery pb-3">
+                    <img src="{{ product.image.url }}" alt="" class="img-fluid">
+                    {% for image in product.gallery.all %}
+                    <img src="{{ image.image.url }}" alt="" class="img-fluid">
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h2>{{ product.title }}</h2>
+                
+                <p>{{ product.description }}</p>
+
+                <p><b>Seller:</b> {{ product.user.get_full_name }}</p>
+
+                <p class="price">
+                    <i class="fas fa-rupee-sign"></i>
+                    {{ product.price }} Rs
+                </p>
+
+                <form action="{% url 'main:add_cart_item' %}" method="POST">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+
+                    <label>Quantity</label>
+                    <select name="quantity" class="form-control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+
+                    <button class="btn btn-outline-dark mt-3" type="submit">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                </form>  
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

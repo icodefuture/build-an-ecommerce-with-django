@@ -1,0 +1,41 @@
+{% extends "../app.html" %}
+
+{% block  content %}
+<div class="auth login-page py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        
+                        <form action="{% url 'main:login' %}" method="POST">
+                            {% csrf_token %}
+                            
+                            {{ form.username.errors }}
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
+                            <br>
+                            {{ form.password.errors }}
+                            {{ form.password.label_tag }}
+                            {{ form.password }}
+                            <br>
+                            <button class="btn btn-primary" type="submit">Login</button>
+                        </form>
+
+                        <p class="mt-3">Don't have an account? <a href="{% url 'main:register' %}">Register</a></p>
+                        <p class="mt-3">Want to join as a merchant? <a href="{% url 'main:register_merchant' %}">Create an account now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

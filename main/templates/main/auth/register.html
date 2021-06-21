@@ -1,0 +1,27 @@
+{% extends "../app.html" %}
+
+{% block  content %}
+<div class="auth login-page py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Create an account</div>
+                    <div class="card-body">        
+                        <form action="{% url 'main:register' %}" method="POST">
+                            {% csrf_token %}
+                            {% load crispy_forms_tags %}
+                            {{ form|crispy }}
+                            
+                            <button class="btn btn-primary" type="submit">Register</button>
+                        </form>
+
+                        <p class="mt-3">Already have an account? <a href="{% url 'main:login' %}">Login</a></p>
+                        <p class="mt-3">Want to join as a merchant? <a href="{% url 'main:register_merchant' %}">Create an account now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+env
+env/*
+db.sqlite3
+ecomx/__pycache__
+main/__pycache__
+__pycache__
+local_settings.py
+media/*

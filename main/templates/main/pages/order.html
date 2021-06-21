@@ -1,0 +1,48 @@
+{% extends "../app.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Checkout</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="{% url 'main:order' %}" method="POST">
+                {% csrf_token %}
+                {% load crispy_forms_tags %}
+                {{ form|crispy }}
+        
+                <button class="btn btn-dark" type="submit">Place Order</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <p style="margin-bottom: 8px">Cart</p>
+            <table class="table table-bordered">
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                {% for item in cart.cart_item.all %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <a href="{% url 'main:product_show' slug=item.product.slug %}">
+                            {{ item.product.title }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ item.quantity }}
+                    </td>
+                    <td>
+                        {{ item.total_cost }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <p>
+                <strong>Total: {{ cart.total }}</strong>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

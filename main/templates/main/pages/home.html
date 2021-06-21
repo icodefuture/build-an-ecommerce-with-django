@@ -1,0 +1,41 @@
+{% extends "../app.html" %}
+
+{% block  content %}
+<div class="header">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+        <div class="container">
+            <h1>Art with an attitude</h1>
+            <p class="lead">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima a impedit enim ratione</p>
+        </div>
+    </div>
+</div>
+
+<div class="products">
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-3">
+                <div class="card border-0">
+                    <a href="{% url 'main:product_show' slug=product.slug %}">
+                        <img src="{{ product.image.url }}" alt="" class="card-img-top">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <a href="{% url 'main:product_show' slug=product.slug %}">
+                                {{ product.title }}
+                            </a>
+                        </p>
+
+                        <p class="price card-text">
+                            <i class="fas fa-ruppe-sign"></i>
+                            {{ product.price }} RS
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
